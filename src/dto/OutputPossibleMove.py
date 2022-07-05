@@ -1,0 +1,1 @@
+#создается после получения InputActiveChecker
