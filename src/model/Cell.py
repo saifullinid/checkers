@@ -1,5 +1,5 @@
 class Cell:
-    def __init__(self, content, x_coord, y_coord, number):
+    def __init__(self, content, x_coord, y_coord, number=-1, rank=-1):
         # content: '-1' - empty; '0' - white checker; '1' - black checker
         # x_coord, y_coord - range [0:7]
         # number - if content '0' or '1' - range [0:11] for white checkers and black checkers
@@ -7,8 +7,8 @@ class Cell:
         self.x_coord = x_coord
         self.y_coord = y_coord
         self.number = number
-        self.rank = 0
-        self.active = 0
+        self.rank = rank
+        # self.active = 0
 
     def __repr__(self):
         return f'Cell (x_coord:y_coord):({self.x_coord}:{self.y_coord}) content:{self.content}; number:{self.number}'
