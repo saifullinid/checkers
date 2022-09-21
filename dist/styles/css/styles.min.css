@@ -1,0 +1,267 @@
+@charset "UTF-8";
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/*--------------------*/
+.bigred {
+  font-size: 20px;
+  color: red;
+}
+
+.shell {
+  position: relative;
+  margin: 0 auto;
+  height: 662px;
+  width: 662px;
+}
+
+.top_border, .bottom_border {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 31px;
+  height: 30px;
+}
+
+.left_border, .right_border {
+  position: absolute;
+  top: 31px;
+}
+
+.right_border {
+  right: 0;
+}
+
+.letter span {
+  display: inline-block;
+  width: 75px;
+  text-align: center;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.number span {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  font-size: 25px;
+  line-height: 75px;
+}
+
+.field {
+  position: relative;
+  margin: 0 auto;
+  width: 602px;
+  border: 1px solid black;
+  transform: rotateZ(0deg);
+  transition: transform 1s linear;
+}
+
+.row {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  width: 602px;
+}
+
+.cell {
+  width: 75px;
+  height: 75px;
+}
+.cell.black_cell {
+  background-color: #854803;
+}
+.cell.white_cell {
+  background-color: #ffd9ad;
+}
+.cell.active_cell {
+  cursor: pointer;
+  background-color: green;
+}
+.cell.red_color {
+  background-color: red;
+}
+
+.checker {
+  position: absolute;
+  top: calc(var(--row) * 75px + 2.5px);
+  left: calc(var(--column) * 75px + 2.5px);
+  transform-style: preserve-3d;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.checker.black .top {
+  background: url("../../images/game/black-checker.png") no-repeat center/cover;
+}
+.checker.black .bottom {
+  background: url("../../images/game/black-queen.png") no-repeat center/cover;
+}
+.checker.white .top {
+  background: url("../../images/game/white-checker.png") no-repeat center/cover;
+}
+.checker.white .bottom {
+  background: url("../../images/game/white-queen.png") no-repeat center/cover;
+}
+.checker.queen {
+  transform: rotateX(180deg);
+}
+.checker.hovered:hover {
+  cursor: pointer;
+}
+.checker.active_checker {
+  box-shadow: 0 0 0 5px green;
+}
+
+.top, .bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.top {
+  transform: rotateX(0deg) translateY(0) translateZ(10px);
+  background: url("../../images/game/black-checker.png") no-repeat center/cover;
+}
+
+.bottom {
+  transform: rotateX(0deg) translateY(0) translateZ(-10px);
+  background: url("../../images/game/black-queen.png") no-repeat center/cover;
+}
+
+.nav {
+  margin-bottom: 25px;
+  height: 50px;
+}
+
+.nav_list {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  height: 100%;
+}
+
+.nav_item {
+  display: block;
+  margin-right: 40px;
+}
+
+.nav_link {
+  display: block;
+  padding: 0 20px;
+  max-height: 100%;
+  max-width: 100%;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #e595b3;
+}
+.nav_link:hover {
+  background-color: #cc8787;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 25px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.start_button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translatey(-50%);
+  z-index: 100;
+  width: 300px;
+  height: 100px;
+  background-color: #5e45ff;
+  font-size: 40px;
+  opacity: 1;
+  transition: opacity 0.5s linear, display 0s linear 1s;
+}
+.start_button:hover {
+  cursor: pointer;
+}
+
+.start_button-hidden {
+  opacity: 0;
+  display: none;
+}

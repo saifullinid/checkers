@@ -1,0 +1,29 @@
+{% for row in rows %}
+    <div class="row">
+        {% for column in columns %}
+            <div class="cell cell_row_{{ row }} cell_column_{{ column }} {{ ('white_cell') if (row + column)%2 == 0 else ('black_cell') }}"></div>
+            {% set coord = [row, column] %}
+            {% if coord in black_checkers %}
+                {% if coord in queens %}
+                    <div class="checker black queen  row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
+                        {% include "checker.html" %}
+                    </div>
+                {% else %}
+                    <div class="checker black row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
+                        {% include "checker.html" %}
+                    </div>
+                {% endif %}
+            {% elif coord in white_checkers %}
+                {% if coord in queens %}
+                    <div class="checker white queen  row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
+                        {% include "checker.html" %}
+                    </div>
+                {% else %}
+                    <div class="checker white row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
+                        {% include "checker.html" %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}

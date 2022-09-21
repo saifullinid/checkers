@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <div class="container">
+            <div class="shell">
+                <div class="top_border">
+                    {% include "letters.html" %}
+                </div>
+                <div class="left_border">
+                    {% include "numbers.html" %}
+                </div>
+                <div class="field">
+                    <button class="start_button" type="submit" name="start_game">START GAME</button>
+                    {% include "field.html" %}
+                </div>
+                <div class="bottom_border">
+                    {% include "letters.html" %}
+                </div>
+                <div class="right_border">
+                    {% include "numbers.html" %}
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}
