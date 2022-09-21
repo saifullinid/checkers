@@ -1,0 +1,152 @@
+.shell {
+    position: relative;
+    margin: 0 auto;
+    height: $cell-size * 8 + 62px;
+    width: $cell-size * 8 + 62px;
+}
+
+.top_border, .bottom_border{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 31px;
+    height: 30px;
+}
+
+.left_border, .right_border {
+    position: absolute;
+    top: 31px;
+}
+
+.right_border {
+    right: 0;
+}
+
+.letter {
+    span {
+        display: inline-block;
+        width: $cell-size;
+
+        text-align: center;
+        font-size: 25px;
+        line-height: 30px;
+    }
+}
+
+.number {
+    span {
+        display: inline-block;
+        width: 30px;
+
+        text-align: center;
+        font-size: 25px;
+        line-height: 75px;
+    }
+}
+
+.field {
+    position: relative;
+    margin: 0 auto;
+    width: $cell-size * 8 + 2px;
+
+    border: 1px solid black;
+    transform: rotateZ(0deg);
+    transition: transform 1s linear;
+
+    // &.turned {
+    //     transform: rotateZ(180deg);
+
+    //     .queen {
+    //         transform: rotateZ(180deg) rotateX(180deg);
+    //     }
+    // }
+}
+
+.row {
+    display: flex;
+    margin: 0 auto;
+
+    flex-wrap: wrap;
+    width: $cell-size * 8 + 2px;
+}
+
+.cell {
+    width: $cell-size;
+    height: $cell-size;
+    &.black_cell {
+        background-color: #854803;
+    }
+    &.white_cell {
+        background-color: #ffd9ad;
+    }
+    &.active_cell {
+        cursor: pointer;
+        background-color: green;
+    }
+    &.red_color {
+        background-color: red;
+    }
+}
+
+.checker {
+    position: absolute;
+    top: calc(var(--row) * $cell-size + 2.5px);
+    left: calc(var(--column) * $cell-size + 2.5px);
+    transform-style: preserve-3d;
+
+    width: $cell-size - 5px;
+    height: $cell-size - 5px;
+
+    border-radius: 50%;
+
+    &.black {
+        .top {
+            background: url("@img/game/black-checker.png") no-repeat center / cover;
+        }
+        .bottom {
+            background: url("@img/game/black-queen.png") no-repeat center / cover;
+        }
+    }
+
+    &.white {
+        .top {
+            background: url("@img/game/white-checker.png") no-repeat center / cover;
+        }
+        .bottom {
+            background: url("@img/game/white-queen.png") no-repeat center / cover;
+        }
+    }
+
+    &.queen {
+        transform: rotateX(180deg);
+    }
+
+    &.hovered {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &.active_checker {
+        box-shadow: 0 0 0 5px green;
+    }
+}
+
+
+.top, .bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $cell-size - 5px;
+    height: $cell-size - 5px;
+    border-radius: 50%;
+}
+
+.top {
+    transform: rotateX(0deg) translateY(0) translateZ(10px);
+    background: url("@img/game/black-checker.png") no-repeat center / cover;
+
+}
+
+.bottom {
+    transform: rotateX(0deg) translateY(0) translateZ(-10px);
+    background: url("@img/game/black-queen.png") no-repeat center / cover;
+}

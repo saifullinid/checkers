@@ -1,0 +1,36 @@
+.nav {
+    margin-bottom: 25px;
+    height: 50px;
+    // background-color: #a095e5;
+}
+
+.nav_list {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+
+    height: 100%;
+}
+
+.nav_item {
+    display: block;
+    // width: 100px;
+    margin-right: 40px;
+}
+
+.nav_link {
+    display: block;
+    padding: 0 20px;
+    max-height: 100%;
+    max-width: 100%;
+    text-decoration: none;
+    font-size: 30px;
+    line-height: 50px;
+
+    text-align: center;
+    background-color: #e595b3;
+    &:hover {
+        background-color: #cc8787;
+        cursor: pointer;
+    }
+}
