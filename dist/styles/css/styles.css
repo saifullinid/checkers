@@ -146,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .cell.active_cell {
   cursor: pointer;
-  background-color: green;
+  background-color: #15de18;
 }
 .cell.red_color {
   background-color: red;
@@ -163,24 +163,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 .checker.black .top {
   background: url("../../images/game/black-checker.png") no-repeat center/cover;
+  transform: rotateX(0deg) translateY(0) translateZ(10px);
 }
 .checker.black .bottom {
   background: url("../../images/game/black-queen.png") no-repeat center/cover;
+  transform: rotateX(0deg) translateY(0) translateZ(-10px);
 }
 .checker.white .top {
   background: url("../../images/game/white-checker.png") no-repeat center/cover;
+  transform: rotateX(0deg) translateY(0) translateZ(10px);
 }
 .checker.white .bottom {
   background: url("../../images/game/white-queen.png") no-repeat center/cover;
+  transform: rotateX(0deg) translateY(0) translateZ(-10px);
 }
 .checker.queen {
   transform: rotateX(180deg);
+}
+.checker.hovered {
+  box-shadow: 0 0 0 2.5px yellow;
 }
 .checker.hovered:hover {
   cursor: pointer;
 }
 .checker.active_checker {
-  box-shadow: 0 0 0 5px green;
+  box-shadow: 0 0 0 2.5px #40ff00;
 }
 
 .top, .bottom {
@@ -192,31 +199,213 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
 }
 
-.top {
-  transform: rotateX(0deg) translateY(0) translateZ(10px);
-  background: url("../../images/game/black-checker.png") no-repeat center/cover;
+body {
+  background-color: #8a8a8a;
+  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  font-family: Arial, Helvetica, sans-serif;
+}
+body h1::selection, body p::selection {
+  background-color: #7a7a7a;
 }
 
-.bottom {
-  transform: rotateX(0deg) translateY(0) translateZ(-10px);
-  background: url("../../images/game/black-queen.png") no-repeat center/cover;
+.container {
+  margin: 0 auto;
+  width: 1200px;
+  text-align: center;
+}
+.container h1 {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+.container p {
+  font-size: 25px;
+}
+
+.form_container {
+  margin: 100px auto;
+  max-width: 600px;
+}
+
+.form_item {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 0 50px;
+  font-size: 25px;
+}
+.form_item a {
+  color: #000;
+}
+.form_item a:link {
+  color: #000;
+}
+.form_item a:visited {
+  color: #000;
+}
+.form_item a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.form_item a:active {
+  color: #7a7a7a;
+}
+.form_item a::selection {
+  background: #7a7a7a;
+}
+
+.form_label {
+  display: block;
+  width: 40%;
+}
+.form_label::selection {
+  background-color: #7a7a7a;
+}
+
+.form_input {
+  padding: 0 5px;
+  width: 60%;
+  font-size: 25px;
+  border-radius: 5px;
+}
+.form_input:focus {
+  box-shadow: 0 0 5px 2px #000;
+}
+.form_input::selection {
+  background-color: #7a7a7a;
+}
+
+.form_select {
+  /* scrollbar */
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+.form_select option:checked {
+  box-shadow: 0 0 10px 100px #7a7a7a inset;
+  color: #fff;
+}
+.form_select::-webkit-scrollbar {
+  width: 10px;
+}
+.form_select::-webkit-scrollbar-track {
+  background: #b5b7b6;
+  border-radius: 50px;
+}
+.form_select::-webkit-scrollbar-thumb {
+  background: #8a8a8a;
+  border: #b5b7b6 2px solid;
+  border-radius: 50px;
+}
+.form_select::-webkit-scrollbar-thumb:hover {
+  background: #7a7a7a;
+}
+
+.remember_label {
+  display: inline-block;
+  position: relative;
+  user-select: none;
+}
+.remember_label::before {
+  content: "";
+  position: absolute;
+  left: 200px;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.remember_label::after {
+  content: "";
+  position: absolute;
+  left: 202px;
+  top: 7px;
+  width: 15px;
+  height: 10px;
+  border-radius: 1px;
+  border-left: 4px solid #7a7a7a;
+  border-bottom: 4px solid #7a7a7a;
+  transform: rotate(-45deg);
+}
+.remember_label:hover {
+  cursor: pointer;
+}
+
+.remember_checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.remember_checkbox:not(:checked) + .remember_label:after {
+  opacity: 0;
+}
+.remember_checkbox:checked + .remember_label:after {
+  opacity: 1;
+}
+
+.submit {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  border-radius: 5px;
+  filter: brightness(100%);
+  transition: filter 0.2s linear;
+}
+.submit:hover {
+  cursor: pointer;
+  filter: brightness(90%);
 }
 
 .nav {
   margin-bottom: 25px;
   height: 50px;
+  background-color: #8a8a8a;
+  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  filter: brightness(80%);
 }
 
 .nav_list {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0;
   height: 100%;
+}
+.nav_list a {
+  color: #000;
+}
+.nav_list a:link {
+  color: #000;
+}
+.nav_list a:visited {
+  color: #000;
+}
+.nav_list a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.nav_list a:active {
+  color: #7a7a7a;
+}
+.nav_list a::selection {
+  background: #7a7a7a;
+}
+.nav_list a:hover {
+  text-decoration: none;
+}
+
+.nav_list-left {
+  display: flex;
+}
+
+.nav_list-right {
+  display: flex;
 }
 
 .nav_item {
   display: block;
-  margin-right: 40px;
+  min-width: 200px;
 }
 
 .nav_link {
@@ -228,37 +417,32 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 30px;
   line-height: 50px;
   text-align: center;
-  background-color: #e595b3;
+  background-color: #8a8a8a;
+  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  transition: filter 0.5s linear;
 }
 .nav_link:hover {
-  background-color: #cc8787;
+  filter: brightness(70%);
   cursor: pointer;
-}
-
-h1 {
-  font-size: 25px;
-}
-
-.container {
-  margin: 0 auto;
-  width: 1200px;
 }
 
 .start_button {
   position: absolute;
+  padding: 15px;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translatey(-50%);
   z-index: 100;
-  width: 300px;
-  height: 100px;
-  background-color: #5e45ff;
+  background-color: #8a8a8a;
+  border: 1px solid #000;
+  border-radius: 5px;
   font-size: 40px;
   opacity: 1;
   transition: opacity 0.5s linear, display 0s linear 1s;
 }
 .start_button:hover {
   cursor: pointer;
+  box-shadow: 0 0 5px 2px #000;
 }
 
 .start_button-hidden {

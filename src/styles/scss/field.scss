@@ -73,17 +73,17 @@
     width: $cell-size;
     height: $cell-size;
     &.black_cell {
-        background-color: #854803;
+        background-color: $cell1;
     }
     &.white_cell {
-        background-color: #ffd9ad;
+        background-color: $cell2;
     }
     &.active_cell {
         cursor: pointer;
-        background-color: green;
+        background-color: $cell3;
     }
     &.red_color {
-        background-color: red;
+        background-color: $cell4;
     }
 }
 
@@ -99,21 +99,11 @@
     border-radius: 50%;
 
     &.black {
-        .top {
-            background: url("@img/game/black-checker.png") no-repeat center / cover;
-        }
-        .bottom {
-            background: url("@img/game/black-queen.png") no-repeat center / cover;
-        }
+        @include tb($bchecker, $bqueen);
     }
 
     &.white {
-        .top {
-            background: url("@img/game/white-checker.png") no-repeat center / cover;
-        }
-        .bottom {
-            background: url("@img/game/white-queen.png") no-repeat center / cover;
-        }
+        @include tb($wchecker, $wqueen);
     }
 
     &.queen {
@@ -121,15 +111,16 @@
     }
 
     &.hovered {
+        box-shadow: 0 0 0 2.5px $hovchecker;
         &:hover {
             cursor: pointer;
         }
     }
+
     &.active_checker {
-        box-shadow: 0 0 0 5px green;
+        box-shadow: 0 0 0 2.5px $actchecker;
     }
 }
-
 
 .top, .bottom {
     position: absolute;
@@ -138,15 +129,4 @@
     width: $cell-size - 5px;
     height: $cell-size - 5px;
     border-radius: 50%;
-}
-
-.top {
-    transform: rotateX(0deg) translateY(0) translateZ(10px);
-    background: url("@img/game/black-checker.png") no-repeat center / cover;
-
-}
-
-.bottom {
-    transform: rotateX(0deg) translateY(0) translateZ(-10px);
-    background: url("@img/game/black-queen.png") no-repeat center / cover;
 }

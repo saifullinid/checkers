@@ -13,16 +13,7 @@
     <body>
         <header class="header">
             <div class="header_panel">
-                <nav class="nav">
-                    <ul class="nav_list">
-                        <li class="nav_item">
-                            <a class="nav_link" href="{{ url_for('index') }}">HOME</a>
-                        </li>
-                        <li class="nav_item">
-                            <a class="nav_link" href="{{ url_for('game') }}">GAME</a>
-                        </li>
-                    </ul>
-                </nav>
+                {% include 'nav.html' %}
             </div>
         </header>
         {% block content %}
@@ -30,5 +21,4 @@
 
         <script type="module" src="{{ url_for('static', filename='scripts/js/scripts.js') }}"></script>
     </body>
-
 </html>
