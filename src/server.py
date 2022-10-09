@@ -1,2 +1,2 @@
-from app.routes import app
-# import my_path
+from src.app import app
+
