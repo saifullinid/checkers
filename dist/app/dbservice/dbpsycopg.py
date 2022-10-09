@@ -8,7 +8,7 @@ psycopg_config = {'host': '127.0.0.1',
 
 
 # класс для работы с БД через psycopg2
-class dbPsycopg():
+class dbPsycopg:
     def set_connection(self):
         try:
             connection = psycopg2.connect(

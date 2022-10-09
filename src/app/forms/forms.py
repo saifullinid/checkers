@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, HiddenField
 from wtforms.validators import DataRequired, length, Email, EqualTo
+from src.app.dbservice.dbservice import dbService
 
 
 class LoginForm(FlaskForm):
@@ -24,5 +25,15 @@ class NewRoomForm(FlaskForm):
 
 
 class ChoiceRoomForm(FlaskForm):
-    choice_room_name = SelectField('Choice room', choices=[('1fdfsdfsd', 'one'), ('2', 'two'), ('3', 'three'), ('1', 'one'), ('2', 'two'), ('3', 'three'), ('1', 'one'), ('2', 'two'), ('3', 'three'), ('1', 'one'), ('2', 'two'), ('3', 'three')])
+    choice_room_name = SelectField('Choice room')
     submit = SubmitField('Choice')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.choice_room_name.choices = dbService.get_all_roomnames()
+
+
+class ChoiceColorForm(FlaskForm):
+    hidden = HiddenField('hidden', default='color', validators=[DataRequired()])
+    white = SubmitField('white')
+    black = SubmitField('black')
