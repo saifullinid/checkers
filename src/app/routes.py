@@ -89,7 +89,7 @@ def game(roomname):
     else:
         if form.validate_on_submit():
             # получаем цвет шашек из формы
-            color = 'white' if form.submit_white.data else 'black'
+            color = 'white' if form.white.data else 'black'
             dbService.set_color(current_user.username, color, db)
             storage.add_player_to_game_data(roomname, color, current_user.username)
 
