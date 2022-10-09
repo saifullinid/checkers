@@ -3,6 +3,7 @@ class GameDataDTO:
         self.active_player = game_data.active_player
         self.winner = game_data.winner
         self.possible_moves = game_data.possible_moves
+        self.players = game_data.players
         self.black_list = []
         self.white_list = []
         self.queen_list = []
@@ -18,3 +19,10 @@ class GameDataDTO:
                 self.white_list.append(list(coordinate))
                 if item.rank:
                     self.queen_list.append(list(coordinate))
+
+    def check_players_and_set_winner(self):
+        if len(self.players.keys()) < 2:
+            if self.players.get('white'):
+                self.winner = 'white'
+            else:
+                self.winner = 'black'
