@@ -39,6 +39,14 @@ class dbService:
         db.session.commit()
 
     @staticmethod
+    def get_all_roomnames():
+        output_roomnames = []
+        rooms = Rooms.query.all()
+        for room in rooms:
+            output_roomnames.append(room.roomname)
+        return output_roomnames
+
+    @staticmethod
     def get_roomname_by_user(user):
         sql_row_room = Rooms.query.filter(Rooms.id == user.room_id).first()
         if sql_row_room:

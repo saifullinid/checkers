@@ -98,13 +98,13 @@
 
     border-radius: 50%;
 
-    &.black {
-        @include tb($bchecker, $bqueen);
-    }
-
-    &.white {
-        @include tb($wchecker, $wqueen);
-    }
+    //&.black {
+    //    @include tb($bchecker, $bqueen);
+    //}
+    //
+    //&.white {
+    //    @include tb($wchecker, $wqueen);
+    //}
 
     &.queen {
         transform: rotateX(180deg);

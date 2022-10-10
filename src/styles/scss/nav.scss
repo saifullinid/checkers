@@ -12,13 +12,13 @@
     justify-content: space-between;
     padding: 0;
 
-    height: 100%;
-    a {
-        @include links();
-        &:hover {
-            text-decoration: none;
-        }
-    }
+//    height: 100%;
+//    a {
+//        @include links();
+//        &:hover {
+//            text-decoration: none;
+//        }
+//    }
 }
 
 .nav_list-left {

@@ -20,8 +20,8 @@ def index():
     title = 'CHECKERS'
     if current_user.is_authenticated:
         # если пользователь находился в комнате, выходим из нее
-        storage.logout_user_from_room(current_user)
-        dbService.logout_user_from_room(current_user, db)
+        # storage.logout_user_from_room(current_user)
+        # dbService.logout_user_from_room(current_user, db)
 
         name = current_user.username
     else:
@@ -34,8 +34,8 @@ def index():
 @login_required
 def rooms():
     # если пользователь находился в комнате, выходим из нее
-    storage.logout_user_from_room(current_user)
-    dbService.logout_user_from_room(current_user, db)
+    # storage.logout_user_from_room(current_user)
+    # dbService.logout_user_from_room(current_user, db)
 
     title = 'ROOMS'
     new_room_form = NewRoomForm()
@@ -152,7 +152,7 @@ def do_start(roomname):
         res.headers['Content-Type'] = 'application/json'
         return res
 
-    # обработка начала игры
+    # обработка GET запроса на получение игровых данных
     game_data = game_service.get_game_data_dto()
     game_data_json = json.dumps(game_data, default=lambda x: x.__dict__)
     res = make_response(game_data_json, 200)
@@ -182,8 +182,8 @@ def login():
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    storage.logout_user_from_room(current_user)
-    dbService.logout_user_from_room(current_user, db)
+    # storage.logout_user_from_room(current_user)
+    # dbService.logout_user_from_room(current_user, db)
     logout_user()
     return redirect(url_for('index'))
 
@@ -213,5 +213,5 @@ def registration():
 # удаление существующих комнат
 @app.route('/rdel', methods=['GET'])
 def delete_rooms():
-    dbService.delete_all_rooms(db)
+    # dbService.delete_all_rooms(db)
     return redirect(url_for('index'))

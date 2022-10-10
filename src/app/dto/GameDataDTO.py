@@ -4,10 +4,12 @@ class GameDataDTO:
         self.winner = game_data.winner
         self.possible_moves = game_data.possible_moves
         self.players = game_data.players
+        self.move = game_data.move
         self.black_list = []
         self.white_list = []
         self.queen_list = []
         self.create_field_lists(game_data)
+        self.check_players_and_set_winner()
 
     def create_field_lists(self, game_data):
         for coordinate, item in game_data.board.field.items():
