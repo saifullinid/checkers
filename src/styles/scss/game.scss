@@ -3,6 +3,51 @@
     margin: 0 auto;
     height: $cell-size * 8 + 62px;
     width: $cell-size * 8 + 62px;
+
+    &.turned {
+        .around_white {
+            display: none;
+        }
+        .around_black {
+            display: block;
+        }
+        .field {
+            transform: rotateZ(180deg);
+            .queen {
+                transform: rotateZ(180deg) rotateX(180deg);
+            }
+        }
+    }
+}
+
+.waiting {
+    display: none;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 15;
+    transform: translateX(-50%) translateY(-50%);
+
+    border-radius: 10px;
+
+    font-size: 25px;
+    line-height: 25px;
+    text-transform: uppercase;
+    text-align: center;
+
+    background-color: $gray1;
+}
+
+.around_black {
+    display: none;
+}
+
+.bottom_border {
+    position: absolute;
+    top: 100%;
+    transform: translateY(-100%);
+
 }
 
 .top_border, .bottom_border{
@@ -51,14 +96,6 @@
     border: 1px solid black;
     transform: rotateZ(0deg);
     transition: transform 1s linear;
-
-    // &.turned {
-    //     transform: rotateZ(180deg);
-
-    //     .queen {
-    //         transform: rotateZ(180deg) rotateX(180deg);
-    //     }
-    // }
 }
 
 .row {
@@ -98,16 +135,23 @@
 
     border-radius: 50%;
 
-    //&.black {
-    //    @include tb($bchecker, $bqueen);
-    //}
-    //
-    //&.white {
-    //    @include tb($wchecker, $wqueen);
-    //}
+    &.white {
+        background: $wchecker no-repeat center/cover;
+    }
+
+    &.black {
+        background: $bchecker no-repeat center/cover;
+    }
 
     &.queen {
         transform: rotateX(180deg);
+        &.white {
+            background: $wqueen no-repeat center/cover;
+        }
+
+        &.black {
+            background: $bqueen no-repeat center/cover;
+        }
     }
 
     &.hovered {

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="form_container">
+        <h2 class="form_title">LOG IN</h2>
+        <form action="" class="form" method="post">
+            {{ form.hidden_tag() }}
+            <p class="form_item">
+                {{ form.username.label(class='form_label', autocomplete='off') }}
+                {{ form.username(class='form_input', placeholder='Enter youre Name') }}
+            </p>
+            <p class="form_item">
+                {{ form.password.label(class='form_label') }}
+                {{ form.password(class='form_input', placeholder='Enter youre Password') }}
+            </p>
+            <p class="form_item form_item--remember">
+                {{ form.remember_me(class='form_input form_input--remember') }}
+                {{ form.remember_me.label(class='form_label form_label--remember') }}
+            </p>
+            <p class="form_item">
+                {{ form.submit(class='form_submit') }}
+            </p>
+            <p class="form_item">
+                <a class="form_link" href="{{url_for('registration')}}">Registration</a>
+            </p>
+
+        </form>
+    </div>
+{% endblock content %}
