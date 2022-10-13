@@ -5,6 +5,9 @@
   margin: 0;
   border: 0;
 }
+*::selection {
+  background-color: #7a7a7a;
+}
 
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -79,11 +82,117 @@ h1, h2, h3, h4, h5, h6 {
   color: red;
 }
 
+.greeting {
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: center;
+  font-size: 35px;
+}
+.greeting p, .greeting h1 {
+  margin-bottom: 10px;
+}
+
+.nav {
+  margin-bottom: 30px;
+  height: 50px;
+  background-color: #8a8a8a;
+  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  filter: brightness(80%);
+}
+
+.nav_list {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  height: 100%;
+}
+
+.nav_link:link, .nav_link:visited {
+  color: #000;
+}
+.nav_link:hover {
+  text-decoration: none;
+}
+.nav_link:active {
+  color: #ffffff;
+}
+
+.nav_left, .nav_right {
+  display: flex;
+}
+
+.nav_item {
+  display: block;
+  min-width: 200px;
+}
+
+.nav_link {
+  display: block;
+  padding: 0 20px;
+  max-height: 100%;
+  max-width: 100%;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #8a8a8a;
+  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  transition: filter 0.5s linear;
+}
+.nav_link:hover {
+  filter: brightness(70%);
+  cursor: pointer;
+}
+
 .shell {
   position: relative;
   margin: 0 auto;
   height: 662px;
   width: 662px;
+}
+.shell.turned .around_white {
+  display: none;
+}
+.shell.turned .around_black {
+  display: block;
+}
+.shell.turned .field {
+  transform: rotateZ(180deg);
+}
+.shell.turned .field .queen {
+  transform: rotateZ(180deg) rotateX(180deg);
+}
+
+.around_black {
+  display: none;
+}
+
+.waiting, .winner_tablet {
+  display: block;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 15;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 10px;
+  font-size: 25px;
+  line-height: 25px;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #8a8a8a;
+}
+.waiting.hidden, .winner_tablet.hidden {
+  display: none;
+}
+.waiting.visible, .winner_tablet.visible {
+  display: block;
+}
+
+.bottom_border {
+  position: absolute;
+  top: 100%;
+  transform: translateY(-100%);
 }
 
 .top_border, .bottom_border {
@@ -161,8 +270,20 @@ h1, h2, h3, h4, h5, h6 {
   height: 70px;
   border-radius: 50%;
 }
+.checker.white {
+  background: url("../../images/game/white-checker.png") no-repeat center/cover;
+}
+.checker.black {
+  background: url("../../images/game/black-checker.png") no-repeat center/cover;
+}
 .checker.queen {
   transform: rotateX(180deg);
+}
+.checker.queen.white {
+  background: url("../../images/game/white-queen.png") no-repeat center/cover;
+}
+.checker.queen.black {
+  background: url("../../images/game/black-queen.png") no-repeat center/cover;
 }
 .checker.hovered {
   box-shadow: 0 0 0 2.5px yellow;
@@ -183,49 +304,221 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
 }
 
-.nav {
-  margin-bottom: 25px;
-  height: 50px;
+.form_container {
+  margin: 0 auto;
+  padding: 10px 150px;
+  max-width: 600px;
+  font-size: 25px;
+}
+
+.form_container--choice_color {
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  border-radius: 10px;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #8a8a8a;
+}
+
+.form_title {
+  position: relative;
+  text-align: center;
+}
+
+.form_title--choice_color {
+  margin-bottom: 10px;
+}
+
+.form_item {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto;
+}
+
+.form_item--new_room, .form_item--choice_room {
+  flex-direction: column;
+}
+
+.form_item--remember {
+  position: relative;
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+
+.form_item--choice_color {
+  margin: 0;
+}
+
+.form_label {
+  display: none;
+}
+
+.form_label--remember {
+  display: block;
+  user-select: none;
+  font-size: 20px;
+  line-height: 20px;
+}
+.form_label--remember:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.form_label--choice_room, .form_label--new_room {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.form_input {
+  width: 100%;
+  padding: 5px 5px;
+  background: transparent;
+  border-bottom: 2px solid #000;
+  border-top: 2px solid transparent;
+  font-size: 20px;
+  line-height: 20px;
+}
+.form_input:focus {
+  border-radius: 5px;
+  border: 2px solid #000;
+}
+.form_input::-webkit-input-placeholder {
+  color: #e3e3e3;
+}
+.form_input:-webkit-autofill {
+  background: transparent;
+}
+.form_input.form_input--remember {
+  display: none;
+}
+.form_input.form_input--remember:checked + .form_label:after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  top: 3px;
+  width: 15px;
+  height: 10px;
+  transform: rotateZ(-45deg);
+  border-bottom: 5px solid #f35b5b;
+  border-left: 5px solid #f35b5b;
+}
+
+.form_input--choice_room {
+  border: 2px solid #000;
+  border-radius: 5px;
+}
+.form_input--choice_room option:checked {
+  box-shadow: 0 0 20px 100px #7a7a7a inset;
+}
+.form_input--choice_room::-webkit-scrollbar {
+  width: 10px;
+}
+.form_input--choice_room::-webkit-scrollbar-track {
+  background: #7a7a7a;
+  border-radius: 5px;
+}
+.form_input--choice_room::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 20px;
+  border: 3px solid #7a7a7a;
+}
+
+.form_input--new_room {
+  text-align: center;
+}
+
+.form_input:-webkit-autofill {
+  background: #000;
+}
+
+.form_submit {
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 5px;
   background-color: #8a8a8a;
   background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
   filter: brightness(80%);
-}
-
-.nav_list {
-  display: flex;
-  justify-content: space-between;
-  padding: 0;
-}
-
-.nav_list-left {
-  display: flex;
-}
-
-.nav_list-right {
-  display: flex;
-}
-
-.nav_item {
-  display: block;
-  min-width: 200px;
-}
-
-.nav_link {
-  display: block;
-  padding: 0 20px;
-  max-height: 100%;
-  max-width: 100%;
-  text-decoration: none;
-  font-size: 30px;
-  line-height: 50px;
-  text-align: center;
-  background-color: #8a8a8a;
-  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  box-shadow: 0 2px 2px 0 #3b3b3b;
+  font-size: 25px;
+  line-height: 25px;
+  text-transform: uppercase;
   transition: filter 0.5s linear;
 }
-.nav_link:hover {
-  filter: brightness(70%);
+.form_submit:hover {
   cursor: pointer;
+  filter: brightness(70%);
+}
+.form_submit:active {
+  box-shadow: 0 2px 2px 0 #7e7e7e inset;
+  transform: translateY(2px);
+}
+
+.form_submit--white, .form_submit--black {
+  margin: 0 10px;
+  padding: 10px;
+  box-shadow: none;
+  background-image: none;
+  filter: brightness(100%);
+}
+
+.form_submit--black {
+  background-color: #000;
+  color: #ffffff;
+}
+.form_submit--black:hover {
+  filter: brightness(100%);
+  box-shadow: 0 2px 6px 0 #ffffff;
+}
+.form_submit--black:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 1px 1px #8a8a8a inset;
+}
+
+.form_submit--white {
+  background-color: #ffffff;
+  color: #000;
+}
+.form_submit--white:hover {
+  filter: brightness(100%);
+  box-shadow: 0 2px 6px 0 #000;
+}
+.form_submit--white:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 1px 1px #8a8a8a inset;
+}
+
+.form_link {
+  font-size: 20px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.5s linear;
+}
+.form_link:link, .form_link:visited {
+  color: #000;
+}
+.form_link:hover {
+  text-decoration: underline;
+  text-decoration-color: #000;
+}
+.form_link:active {
+  color: #000;
+}
+
+body {
+  background-color: #8a8a8a;
+  background-image: url("https://www.transparenttextures.com/patterns/checkered-light-emboss.png");
+  font-family: helvetica, arial, sans-serif;
 }
 
 .start_button {

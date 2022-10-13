@@ -1,10 +1,16 @@
 @import 'reset';
 //@import 'mixins';
 @import 'vars';
-@import 'field';
-//@import 'index';
-//@import 'forms';
+@import 'index';
 @import 'nav';
+@import 'game';
+@import 'forms';
+
+body {
+    background-color: $gray1;
+    background-image: $bgimg;
+    font-family: helvetica, arial, sans-serif;
+}
 
 .start_button {
     position: absolute;

@@ -4,23 +4,31 @@
 
         <div class="container">
             <div class="shell {{ turned_class }}">
-                <div class="waiting">
-                    <p>waiting</p>
-                    <p>for the</p>
-                    <p>second player</p>
+                <div class="winner_tablet hidden">
+                    <p>WINNER</p>
                 </div>
-                <div class="form_container form_container--choice_color">
-                    <form action="" class="form form--choice_color" method="post">
-                        {{ form.hidden_tag() }}
-                        {{ form.hidden(class='form_input form_input--hidden') }}
 
-                        <p class="form_title form_title--choice_color">CHOICE COLOR</p>
-                        <p class="form_item form_item--choice_color">
-                            {{ form.white(class='form_submit form_submit--white') }}
-                            {{ form.black(class='form_submit form_submit--black') }}
-                        </p>
-                    </form>
-                </div>
+                {% if amount_players %}
+                    <div class="waiting">
+                        <p>waiting</p>
+                        <p>for the</p>
+                        <p>second player</p>
+                    </div>
+                {% else %}
+                    <div class="form_container form_container--choice_color">
+                        <form action="" class="form form--choice_color" method="post">
+                            {{ form.hidden_tag() }}
+                            {{ form.hidden(class='form_input form_input--hidden') }}
+
+                            <p class="form_title form_title--choice_color">CHOICE COLOR</p>
+                            <p class="form_item form_item--choice_color">
+                                {{ form.white(class='form_submit form_submit--white') }}
+                                {{ form.black(class='form_submit form_submit--black') }}
+                            </p>
+                        </form>
+                    </div>
+                {% endif %}
+
                 {% include "field/around_white.html" %}
                 {% include "field/around_black.html" %}
 

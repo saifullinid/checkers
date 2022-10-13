@@ -20,8 +20,12 @@
     }
 }
 
-.waiting {
+.around_black {
     display: none;
+}
+
+.waiting,  .winner_tablet{
+    display: block;
     padding: 10px;
     position: absolute;
     top: 50%;
@@ -37,17 +41,18 @@
     text-align: center;
 
     background-color: $gray1;
-}
-
-.around_black {
-    display: none;
+    &.hidden {
+        display: none;
+    }
+    &.visible {
+        display: block;
+    }
 }
 
 .bottom_border {
     position: absolute;
     top: 100%;
     transform: translateY(-100%);
-
 }
 
 .top_border, .bottom_border{

@@ -7,11 +7,11 @@
             {{ form.hidden_tag() }}
             <p class="form_item">
                 {{ form.username.label(class='form_label', autocomplete='off') }}
-                {{ form.username(class='form_input', placeholder='Enter youre Name') }}
+                {{ form.username(class='form_input', placeholder='Enter youre Name', autocomplete='off') }}
             </p>
             <p class="form_item">
                 {{ form.password.label(class='form_label') }}
-                {{ form.password(class='form_input', placeholder='Enter youre Password') }}
+                {{ form.password(class='form_input', placeholder='Enter youre Password', autocomplete='off') }}
             </p>
             <p class="form_item form_item--remember">
                 {{ form.remember_me(class='form_input form_input--remember') }}
