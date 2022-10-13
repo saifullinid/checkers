@@ -3,7 +3,7 @@ export function showWinner(inputGameData) {
     let winnerUsername = inputGameData['players'][winnerColor]
 
     let p = document.createElement('p')
-    p.innerHTML(winnerUsername)
+    p.innerHTML= winnerUsername
     let winnerTablet = document.querySelector('.winner_tablet')
 
     winnerTablet.classList.remove('hidden')

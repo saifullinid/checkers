@@ -123,8 +123,9 @@ export class Move {
         }
     }
 
-    clonePassiveCells(passiveCells) {
-        passiveCells.forEach(el => {
+    cloneCells(activeCells, passiveCells) {
+        let elements = [...activeCells, ...passiveCells]
+        elements.forEach(el => {
             let clone = el.cloneNode(true)
             el.replaceWith(clone)
         })
@@ -146,8 +147,9 @@ export class Move {
                     [activeCells, passiveCells] = moveThis.getActiveCells(checker)
                     moveThis.addCellsActiveClass(activeCells)
                     moveThis.removeCellsActiveClass(passiveCells)
-                    moveThis.clonePassiveCells(passiveCells)
-                    moveThis.gameData.filling()
+                    moveThis.cloneCells(activeCells, passiveCells)
+                    moveThis.gameData.filling();
+                    [activeCells, ] = moveThis.getActiveCells(checker)
 
                     activeCells.forEach(cell => {
                         cell.addEventListener('click', () => {

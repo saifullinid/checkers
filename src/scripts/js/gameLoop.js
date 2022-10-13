@@ -1,8 +1,7 @@
 import {delay} from "./request.js";
-import {GameData} from "./gameData.js";
-import {Move} from "./service.js";
 import {enemyMoveHandling} from "./enemyMoveHandling.js";
 import {ownMoveHandling} from "./ownMoveHandling.js";
+import {showWinner} from "./showWinner.js";
 
 export function startGameLoop(url) {
     let currentUrl = url.replace('game', 'start')
@@ -12,7 +11,7 @@ export function startGameLoop(url) {
         let method = 'GET';
         let winner = ''
 
-        while (!winner) {
+        while (true) {
             let options = {
                 method: method,
                 url: currentUrl,
@@ -21,15 +20,17 @@ export function startGameLoop(url) {
                 params: move,
             }
             let inputGameData = await delay(options)
-            console.log(inputGameData)
+
+            enemyMoveHandling(inputGameData)
+
             winner = inputGameData['winner']
             if (winner) {
+                showWinner(inputGameData)
                 break
             }
 
-            enemyMoveHandling(inputGameData)
             move = await ownMoveHandling(inputGameData)
+
         }
-        console.log(winner);
     })()
 }
