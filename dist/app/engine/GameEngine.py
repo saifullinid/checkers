@@ -144,7 +144,8 @@ class GameEngine:
     @classmethod
     def make_move(cls, move, game_data):
         if cls.check_move(move, game_data):
-            game_data.move = move
+            game_data.move['move'] = move
+            game_data.move['color'] = game_data.active_player
             old_coordinate = tuple(move[0])
             new_coordinate = tuple(move[1])
             game_data.board.field[new_coordinate] = game_data.board.field[old_coordinate]

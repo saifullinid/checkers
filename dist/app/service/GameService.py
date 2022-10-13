@@ -16,6 +16,9 @@ class GameService:
         self.set_game_data_dto()
         return self.game_data_dto
 
+    def clear_game_data(self):
+        self.game_data_dto = None
+
     def search_moves(self):
         GameEngine.filling_possible_moves(self.game_data)
         return self.get_game_data_dto()

@@ -20,8 +20,8 @@ def index():
     title = 'CHECKERS'
     if current_user.is_authenticated:
         # если пользователь находился в комнате, выходим из нее
-        # storage.logout_user_from_room(current_user)
-        # dbService.logout_user_from_room(current_user, db)
+        storage.logout_user_from_room(current_user)
+        dbService.logout_user_from_room(current_user, db)
 
         name = current_user.username
     else:
@@ -34,8 +34,8 @@ def index():
 @login_required
 def rooms():
     # если пользователь находился в комнате, выходим из нее
-    # storage.logout_user_from_room(current_user)
-    # dbService.logout_user_from_room(current_user, db)
+    storage.logout_user_from_room(current_user)
+    dbService.logout_user_from_room(current_user, db)
 
     title = 'ROOMS'
     new_room_form = NewRoomForm()
@@ -64,107 +64,49 @@ def rooms():
 
 
 # страница игры
-# @app.route('/game/<roomname>', methods=['GET', 'POST'])
-# @login_required
-# def game(roomname):
-#     form = ChoiceColorForm()
-#     # получаем количество игроков в комнате
-#     amount_players = storage.get_amount_players_in_game_data(roomname)
-#     # переменная содержит CSS класс (''/'turned'),
-#     # при выборе черных шашек ('turned') развернет игровое поле
-#     turned_class = ''
-#
-#     # если один игрок уже выбрал цвет шашек
-#     if amount_players:
-#         # получаем оставшийся цвет шашек
-#         color = storage.get_second_color(roomname)
-#         dbService.set_color(current_user.username, color, db)
-#         storage.add_player_to_game_data(roomname, color, current_user.username)
-#
-#         amount_players = storage.get_amount_players_in_game_data(roomname)
-#         if color == 'black':
-#             turned_class = 'turned'
-#
-#     # если игроки еще не выблали цвета шашек
-#     else:
-#         if form.validate_on_submit():
-#             # получаем цвет шашек из формы
-#             color = 'white' if form.white.data else 'black'
-#             dbService.set_color(current_user.username, color, db)
-#             storage.add_player_to_game_data(roomname, color, current_user.username)
-#
-#             amount_players = storage.get_amount_players_in_game_data(roomname)
-#             if color == 'black':
-#                 turned_class = 'turned'
-#
-#     # переменные для заполнения игрового поля шашками в шаблоне HTML
-#     rows = range(8)
-#     columns = range(8)
-#     white = 'cell white_cell'
-#     black = 'cell black_cell'
-#
-#     # получаем данные о начальном состоянии игры
-#     game_service = storage.rooms[roomname]
-#     game_service.clear_game_data()
-#     game_service.search_moves()
-#     game_data_dto = game_service.get_game_data_dto()
-#     return render_template('game.html',
-#                            rows=rows,
-#                            columns=columns,
-#                            white=white,
-#                            black=black,
-#                            white_checkers=game_data_dto.white_list,
-#                            black_checkers=game_data_dto.black_list,
-#                            queens=game_data_dto.queen_list,
-#                            turned_class=turned_class,
-#                            form=form,
-#                            amount_players=amount_players)
-
-
-
-# страница игры
 @app.route('/game/<roomname>', methods=['GET', 'POST'])
 @login_required
 def game(roomname):
     form = ChoiceColorForm()
     # получаем количество игроков в комнате
-    # amount_players = storage.get_amount_players_in_game_data(roomname)
+    amount_players = storage.get_amount_players_in_game_data(roomname)
     # переменная содержит CSS класс (''/'turned'),
     # при выборе черных шашек ('turned') развернет игровое поле
     turned_class = ''
 
     # если один игрок уже выбрал цвет шашек
-    # if amount_players:
-    #     # получаем оставшийся цвет шашек
-    #     color = storage.get_second_color(roomname)
-    #     dbService.set_color(current_user.username, color, db)
-    #     storage.add_player_to_game_data(roomname, color, current_user.username)
-    #
-    #     amount_players = storage.get_amount_players_in_game_data(roomname)
-    #     if color == 'black':
-    #         turned_class = 'turned'
+    if amount_players:
+        # получаем оставшийся цвет шашек
+        color = storage.get_second_color(roomname)
+        dbService.set_color(current_user.username, color, db)
+        storage.add_player_to_game_data(roomname, color, current_user.username)
+
+        amount_players = storage.get_amount_players_in_game_data(roomname)
+        if color == 'black':
+            turned_class = 'turned'
 
     # если игроки еще не выблали цвета шашек
-    # else:
-    #     if form.validate_on_submit():
-    #         # получаем цвет шашек из формы
-    #         color = 'white' if form.white.data else 'black'
-    #         dbService.set_color(current_user.username, color, db)
-    #         storage.add_player_to_game_data(roomname, color, current_user.username)
-    #
-    #         amount_players = storage.get_amount_players_in_game_data(roomname)
-    #         if color == 'black':
-    #             turned_class = 'turned'
+    else:
+        if form.validate_on_submit():
+            # получаем цвет шашек из формы
+            color = 'white' if form.white.data else 'black'
+            print('ChoiceColorForm', color)
+            dbService.set_color(current_user.username, color, db)
+            storage.add_player_to_game_data(roomname, color, current_user.username)
+
+            amount_players = storage.get_amount_players_in_game_data(roomname)
+            if color == 'black':
+                turned_class = 'turned'
+    print('amount_players', amount_players)
 
     # переменные для заполнения игрового поля шашками в шаблоне HTML
-    storage.create_room('111')
     rows = range(8)
     columns = range(8)
     white = 'cell white_cell'
     black = 'cell black_cell'
 
     # получаем данные о начальном состоянии игры
-    game_service = storage.rooms['111']
+    game_service = storage.rooms[roomname]
     game_service.clear_game_data()
     game_service.search_moves()
     game_data_dto = game_service.get_game_data_dto()
@@ -177,10 +119,8 @@ def game(roomname):
                            black_checkers=game_data_dto.black_list,
                            queens=game_data_dto.queen_list,
                            turned_class=turned_class,
-                           form=form,)
-                           #amount_players=amount_players)
-
-
+                           form=form,
+                           amount_players=amount_players)
 
 
 # обработка запроса при ожидании второго игрока
@@ -275,5 +215,5 @@ def registration():
 # удаление существующих комнат
 @app.route('/rdel', methods=['GET'])
 def delete_rooms():
-    # dbService.delete_all_rooms(db)
+    dbService.delete_all_rooms(db)
     return redirect(url_for('index'))

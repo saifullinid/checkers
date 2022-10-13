@@ -5,6 +5,7 @@ class GameDataDTO:
         self.possible_moves = game_data.possible_moves
         self.players = game_data.players
         self.move = game_data.move
+        self.is_active_player_changed = game_data.is_active_player_changed
         self.black_list = []
         self.white_list = []
         self.queen_list = []

@@ -20,8 +20,8 @@ def index():
     title = 'CHECKERS'
     if current_user.is_authenticated:
         # если пользователь находился в комнате, выходим из нее
-        # storage.logout_user_from_room(current_user)
-        # dbService.logout_user_from_room(current_user, db)
+        storage.logout_user_from_room(current_user)
+        dbService.logout_user_from_room(current_user, db)
 
         name = current_user.username
     else:
@@ -34,8 +34,8 @@ def index():
 @login_required
 def rooms():
     # если пользователь находился в комнате, выходим из нее
-    # storage.logout_user_from_room(current_user)
-    # dbService.logout_user_from_room(current_user, db)
+    storage.logout_user_from_room(current_user)
+    dbService.logout_user_from_room(current_user, db)
 
     title = 'ROOMS'
     new_room_form = NewRoomForm()
@@ -90,12 +90,14 @@ def game(roomname):
         if form.validate_on_submit():
             # получаем цвет шашек из формы
             color = 'white' if form.white.data else 'black'
+            print('ChoiceColorForm', color)
             dbService.set_color(current_user.username, color, db)
             storage.add_player_to_game_data(roomname, color, current_user.username)
 
             amount_players = storage.get_amount_players_in_game_data(roomname)
             if color == 'black':
                 turned_class = 'turned'
+    print('amount_players', amount_players)
 
     # переменные для заполнения игрового поля шашками в шаблоне HTML
     rows = range(8)
@@ -213,5 +215,5 @@ def registration():
 # удаление существующих комнат
 @app.route('/rdel', methods=['GET'])
 def delete_rooms():
-    # dbService.delete_all_rooms(db)
+    dbService.delete_all_rooms(db)
     return redirect(url_for('index'))
