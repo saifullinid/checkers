@@ -1,36 +1,58 @@
 .nav {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     height: 50px;
-    // background-color: #a095e5;
+
+    background-color: $gray1;
+    background-image: $bgimg;
+    filter: brightness(80%)
 }
 
 .nav_list {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 0;
-
     height: 100%;
+}
+
+.nav_link {
+    &:link, &:visited {
+        color: $black;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+    &:active {
+        color: $white;
+    }
+}
+
+.nav_left, .nav_right{
+    display: flex;
 }
 
 .nav_item {
     display: block;
-    // width: 100px;
-    margin-right: 40px;
+    min-width: 200px;
 }
 
 .nav_link {
     display: block;
     padding: 0 20px;
+
     max-height: 100%;
     max-width: 100%;
+
     text-decoration: none;
     font-size: 30px;
     line-height: 50px;
-
     text-align: center;
-    background-color: #e595b3;
+
+    background-color: $gray1;
+    background-image: $bgimg;
+
+    transition: filter 0.5s linear;
     &:hover {
-        background-color: #cc8787;
+        filter: brightness(70%);
         cursor: pointer;
     }
 }

@@ -6,21 +6,25 @@
             {% if coord in black_checkers %}
                 {% if coord in queens %}
                     <div class="checker black queen  row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
-                        {% include "checker.html" %}
+                        <div class="top"></div>
+                        <div class="bottom"></div>
                     </div>
                 {% else %}
                     <div class="checker black row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
-                        {% include "checker.html" %}
+                        <div class="top"></div>
+                        <div class="bottom"></div>
                     </div>
                 {% endif %}
             {% elif coord in white_checkers %}
                 {% if coord in queens %}
                     <div class="checker white queen  row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
-                        {% include "checker.html" %}
+                        <div class="top"></div>
+                        <div class="bottom"></div>
                     </div>
                 {% else %}
                     <div class="checker white row_{{ row }} column_{{ column }}" style="--row:{{ row }}; --column:{{ column }};">
-                        {% include "checker.html" %}
+                        <div class="top"></div>
+                        <div class="bottom"></div>
                     </div>
                 {% endif %}
             {% endif %}

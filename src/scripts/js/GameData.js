@@ -2,6 +2,7 @@ export class GameData {
 
     constructor(gameData) {
         this.winner = gameData['winner']
+        this.checkWinner()
         this.possibleMoves = gameData['possible_moves']
         this.activePlayer = gameData['active_player']
 

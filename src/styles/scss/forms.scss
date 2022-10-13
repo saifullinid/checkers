@@ -1,0 +1,262 @@
+.form_container {
+    margin: 0 auto;
+    padding: 10px 150px;
+    max-width: 600px;
+
+    font-size: 25px;
+}
+
+.form_container--choice_color {
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+
+    border-radius: 10px;
+
+    transform: translateX(-50%) translateY(-50%);
+
+    background-color: $gray1;
+}
+
+.form_title {
+    position: relative;
+    text-align: center;
+}
+
+.form_title--choice_color {
+    margin-bottom: 10px;
+}
+
+.form_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+}
+
+.form_item--new_room, .form_item--choice_room {
+    flex-direction: column;
+}
+
+.form_item--remember {
+    position: relative;
+    justify-content: flex-end;
+    padding-right: 30px;
+}
+
+.form_item--choice_color {
+    margin: 0;
+}
+
+.form_label {
+    display: none;
+}
+
+.form_label--remember {
+    display: block;
+    user-select: none;
+
+    font-size: 20px;
+    line-height: 20px;
+    &:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+
+        background-color: $white;
+    }
+
+}
+
+.form_label--choice_room, .form_label--new_room {
+    display: block;
+    margin-bottom: 10px;
+
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.form_input {
+    width: 100%;
+    padding: 5px 5px;
+
+    background: transparent;
+
+    border-bottom: 2px solid $black;
+    border-top: 2px solid transparent;
+
+    font-size: 20px;
+    line-height: 20px;
+    &:focus {
+        border-radius: 5px;
+        border: 2px solid $black;
+        //&::-webkit-input-placeholder {
+        //    color: transparent;
+        //}
+    }
+    &::-webkit-input-placeholder {
+        color: #e3e3e3;
+    }
+    &:-webkit-autofill {
+        background: transparent;
+    }
+    &.form_input--remember {
+        display: none;
+
+        &:checked + .form_label {
+            &:after {
+                content: '';
+                position: absolute;
+                right: 2px;
+                top: 3px;
+
+                width: 15px;
+                height: 10px;
+
+                transform: rotateZ(-45deg);
+
+                border-bottom: 5px solid #f35b5b;
+                border-left: 5px solid #f35b5b;
+
+            }
+        }
+    }
+
+}
+
+.form_input--choice_room {
+    border: 2px solid $black;
+    border-radius: 5px;
+
+    option:checked {
+        box-shadow: 0 0 20px 100px $gray2 inset;
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background: $gray2;
+        border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $black;
+        border-radius: 20px;
+        border: 3px solid $gray2;
+    }
+}
+
+.form_input--new_room {
+    text-align: center;
+}
+
+.form_input:-webkit-autofill {
+    background: $black;
+}
+
+.form_submit {
+    padding: 10px 0;
+    width: 100%;
+
+    border-radius: 5px;
+
+    background-color: $gray1;
+    background-image: $bgimg;
+    filter: brightness(80%);
+
+    box-shadow: 0 2px 2px 0 #3b3b3b;
+
+    font-size: 25px;
+    line-height: 25px;
+    text-transform: uppercase;
+
+    transition: filter 0.5s linear;
+    &:hover {
+        cursor: pointer;
+        filter: brightness(70%);
+    }
+    &:active {
+        //color: $white;
+        box-shadow: 0 2px 2px 0 #7e7e7e inset;
+        transform: translateY(2px);
+    }
+}
+
+.form_submit--white, .form_submit--black{
+    margin: 0 10px;
+    padding: 10px;
+
+    box-shadow: none;
+    background-image: none;
+    filter: brightness(100%);
+}
+
+.form_submit--black {
+    background-color: $black;
+    color: $white;
+
+    &:hover {
+        filter: brightness(100%);
+        box-shadow: 0 2px 6px 0 $white;
+    }
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px 1px 1px $gray1 inset;
+    }
+}
+
+.form_submit--white {
+    background-color: $white;
+    color: $black;
+    &:hover {
+        filter: brightness(100%);
+        box-shadow: 0 2px 6px 0 $black;
+    }
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px 1px 1px $gray1 inset;
+    }
+}
+
+.form_link {
+    font-size: 20px;
+
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.5s linear;
+    &:link, &:visited {
+        color: $black;
+    }
+    &:hover {
+        text-decoration: underline;
+        text-decoration-color: $black;
+    }
+    &:active {
+        color: $black;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

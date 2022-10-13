@@ -1,36 +1,40 @@
 @import 'reset';
+//@import 'mixins';
 @import 'vars';
-@import 'field';
+@import 'index';
 @import 'nav';
+@import 'game';
+@import 'forms';
 
-h1 {
-    font-size: 25px;
-}
-
-.container {
-    margin: 0 auto;
-    width: 1200px;
+body {
+    background-color: $gray1;
+    background-image: $bgimg;
+    font-family: helvetica, arial, sans-serif;
 }
 
 .start_button {
     position: absolute;
+    padding: 15px;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translatey(-50%);
     z-index: 100;
 
-    width: 300px;
-    height: 100px;
+    // width: 270px;
+    // height: 70px;
 
-    background-color: #5e45ff;
+    background-color: $gray1;
+    border: 1px solid $black;
+    border-radius: 5px;
     font-size: 40px;
 
     opacity: 1;
     transition: opacity .5s linear, display 0s linear 1s;
 
-	&:hover {
-		cursor: pointer;
-	}
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 5px 2px $black;
+    }
 }
 
 .start_button-hidden {

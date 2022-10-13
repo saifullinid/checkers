@@ -3,22 +3,37 @@
 {% block content %}
 
         <div class="container">
-            <div class="shell">
-                <div class="top_border">
-                    {% include "letters.html" %}
+            <div class="shell {{ turned_class }}">
+                <div class="winner_tablet hidden">
+                    <p>WINNER</p>
                 </div>
-                <div class="left_border">
-                    {% include "numbers.html" %}
-                </div>
+
+                {% if amount_players %}
+                    <div class="waiting">
+                        <p>waiting</p>
+                        <p>for the</p>
+                        <p>second player</p>
+                    </div>
+                {% else %}
+                    <div class="form_container form_container--choice_color">
+                        <form action="" class="form form--choice_color" method="post">
+                            {{ form.hidden_tag() }}
+                            {{ form.hidden(class='form_input form_input--hidden') }}
+
+                            <p class="form_title form_title--choice_color">CHOICE COLOR</p>
+                            <p class="form_item form_item--choice_color">
+                                {{ form.white(class='form_submit form_submit--white') }}
+                                {{ form.black(class='form_submit form_submit--black') }}
+                            </p>
+                        </form>
+                    </div>
+                {% endif %}
+
+                {% include "field/around_white.html" %}
+                {% include "field/around_black.html" %}
+
                 <div class="field">
-                    <button class="start_button" type="submit" name="start_game">START GAME</button>
-                    {% include "field.html" %}
-                </div>
-                <div class="bottom_border">
-                    {% include "letters.html" %}
-                </div>
-                <div class="right_border">
-                    {% include "numbers.html" %}
+                    {% include "field/board.html" %}
                 </div>
             </div>
         </div>

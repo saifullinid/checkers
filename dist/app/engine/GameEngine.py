@@ -144,6 +144,8 @@ class GameEngine:
     @classmethod
     def make_move(cls, move, game_data):
         if cls.check_move(move, game_data):
+            game_data.move['move'] = move
+            game_data.move['color'] = game_data.active_player
             old_coordinate = tuple(move[0])
             new_coordinate = tuple(move[1])
             game_data.board.field[new_coordinate] = game_data.board.field[old_coordinate]
@@ -153,7 +155,6 @@ class GameEngine:
             cls.check_coordinate_and_change_rank(checker, game_data)
 
             if move[-1]:
-                # print(f'!!!deleted found!!!')
                 ignored_vector_x = 1 if (new_coordinate[0] - old_coordinate[0]) < 0 else -1
                 ignored_vector_y = 1 if (new_coordinate[1] - old_coordinate[1]) < 0 else -1
                 game_data.ignored_vector = (ignored_vector_x, ignored_vector_y)
@@ -162,20 +163,19 @@ class GameEngine:
                 game_data.board.field[deleted_coordinate] = 'empty'
 
                 cls.repeat_search_for_moves(checker, game_data)
+                game_data.is_active_player_changed = False
                 if not game_data.is_active_move_found:
                     winner = game_data.active_player
                     cls.change_active_player(game_data)
                     cls.filling_possible_moves(game_data)
                     if not game_data.possible_moves:
                         game_data.winner = winner
-                        # print(f'!!!WINNER!!! {winner}')
             else:
                 winner = game_data.active_player
                 cls.change_active_player(game_data)
                 cls.filling_possible_moves(game_data)
                 if not game_data.possible_moves:
                     game_data.winner = winner
-                    print(f'!!!WINNER!!! {winner}')
 
     @classmethod
     def repeat_search_for_moves(cls, checker, game_data):
@@ -183,12 +183,10 @@ class GameEngine:
         game_data.board.filling_rays(checker)
         active_moves = cls.search_active_moves(checker, game_data.enemy_class, game_data)
         game_data.possible_moves = active_moves
-        # print(f'!!!IN repeat_search_for_moves!!!\n{game_data.possible_moves}\n')
 
     @staticmethod
     def check_move(move, game_data):
         if move in game_data.possible_moves:
-            # print(f'!!!move found!!!')
             return True
         else:
             print(f'!!!move NOT found!!!')
@@ -202,6 +200,7 @@ class GameEngine:
 
     @staticmethod
     def change_active_player(game_data):
+        game_data.is_active_player_changed = True
         if game_data.active_player == 'white':
             game_data.active_player = 'black'
         else:

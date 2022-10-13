@@ -3,6 +3,56 @@
     margin: 0 auto;
     height: $cell-size * 8 + 62px;
     width: $cell-size * 8 + 62px;
+
+    &.turned {
+        .around_white {
+            display: none;
+        }
+        .around_black {
+            display: block;
+        }
+        .field {
+            transform: rotateZ(180deg);
+            .queen {
+                transform: rotateZ(180deg) rotateX(180deg);
+            }
+        }
+    }
+}
+
+.around_black {
+    display: none;
+}
+
+.waiting,  .winner_tablet{
+    display: block;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 15;
+    transform: translateX(-50%) translateY(-50%);
+
+    border-radius: 10px;
+
+    font-size: 25px;
+    line-height: 25px;
+    text-transform: uppercase;
+    text-align: center;
+
+    background-color: $gray1;
+    &.hidden {
+        display: none;
+    }
+    &.visible {
+        display: block;
+    }
+}
+
+.bottom_border {
+    position: absolute;
+    top: 100%;
+    transform: translateY(-100%);
 }
 
 .top_border, .bottom_border{
@@ -51,14 +101,6 @@
     border: 1px solid black;
     transform: rotateZ(0deg);
     transition: transform 1s linear;
-
-    // &.turned {
-    //     transform: rotateZ(180deg);
-
-    //     .queen {
-    //         transform: rotateZ(180deg) rotateX(180deg);
-    //     }
-    // }
 }
 
 .row {
@@ -73,17 +115,17 @@
     width: $cell-size;
     height: $cell-size;
     &.black_cell {
-        background-color: #854803;
+        background-color: $cell1;
     }
     &.white_cell {
-        background-color: #ffd9ad;
+        background-color: $cell2;
     }
     &.active_cell {
         cursor: pointer;
-        background-color: green;
+        background-color: $cell3;
     }
     &.red_color {
-        background-color: red;
+        background-color: $cell4;
     }
 }
 
@@ -98,38 +140,36 @@
 
     border-radius: 50%;
 
-    &.black {
-        .top {
-            background: url("@img/game/black-checker.png") no-repeat center / cover;
-        }
-        .bottom {
-            background: url("@img/game/black-queen.png") no-repeat center / cover;
-        }
+    &.white {
+        background: $wchecker no-repeat center/cover;
     }
 
-    &.white {
-        .top {
-            background: url("@img/game/white-checker.png") no-repeat center / cover;
-        }
-        .bottom {
-            background: url("@img/game/white-queen.png") no-repeat center / cover;
-        }
+    &.black {
+        background: $bchecker no-repeat center/cover;
     }
 
     &.queen {
         transform: rotateX(180deg);
+        &.white {
+            background: $wqueen no-repeat center/cover;
+        }
+
+        &.black {
+            background: $bqueen no-repeat center/cover;
+        }
     }
 
     &.hovered {
+        box-shadow: 0 0 0 2.5px $hovchecker;
         &:hover {
             cursor: pointer;
         }
     }
+
     &.active_checker {
-        box-shadow: 0 0 0 5px green;
+        box-shadow: 0 0 0 2.5px $actchecker;
     }
 }
-
 
 .top, .bottom {
     position: absolute;
@@ -138,15 +178,4 @@
     width: $cell-size - 5px;
     height: $cell-size - 5px;
     border-radius: 50%;
-}
-
-.top {
-    transform: rotateX(0deg) translateY(0) translateZ(10px);
-    background: url("@img/game/black-checker.png") no-repeat center / cover;
-
-}
-
-.bottom {
-    transform: rotateX(0deg) translateY(0) translateZ(-10px);
-    background: url("@img/game/black-queen.png") no-repeat center / cover;
 }
