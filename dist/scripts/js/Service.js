@@ -1,18 +1,17 @@
-export class Service {
-    constructor(gameData) {
-        this.possibleMoves = gameData.possibleMoves
-        this.activePlayer = gameData.activePlayer
+import {GameData} from "./gameData.js";
 
-        this.possibleMovesDOM = gameData.possibleMovesDOM
-        this.elements = gameData.elements
+export class Move {
+    constructor(inputGameData) {
+        this.gameData = new GameData(inputGameData)
+        this.gameData.filling()
     }
 
     getActiveCheckers() {
         let checkersSet = new Set()
-        this.possibleMovesDOM.forEach(move => {
+        let possibleMovesDOM = this.gameData.possibleMovesDOM
+        possibleMovesDOM.forEach(move => {
             checkersSet.add(move[0])
         })
-        console.log('possibleMovesDOM', this.possibleMovesDOM);
         return Array.from(checkersSet)
     }
 
@@ -20,18 +19,19 @@ export class Service {
         checker.classList.toggle('active_checker')
 
         activeCheckers.forEach(el => {
-            if (el != checker) {
+            if (el !== checker) {
                 el.classList.remove('active_checker')
             }
         })
     }
 
     getActiveCells(checker) {
-        let isActiveClassFound = checker.classList.value.includes('active_checker') ? true : false
+        let possibleMovesDOM = this.gameData.possibleMovesDOM
+        let isActiveClassFound = checker.classList.value.includes('active_checker')
         let activeCellsArr = []
         let passiveCellsArr = []
-        this.possibleMovesDOM.forEach(move => {
-            if (move[0] == checker & isActiveClassFound) {
+        possibleMovesDOM.forEach(move => {
+            if (move[0] === checker && isActiveClassFound) {
                 activeCellsArr.push(move[1])
             } else {
                 passiveCellsArr.push(move[1])
@@ -54,12 +54,10 @@ export class Service {
     }
 
     getEnemyChecker(checker, cell) {
+        let possibleMovesDOM = this.gameData.possibleMovesDOM
         let enemyChecker = 0
-        this.possibleMovesDOM.forEach(move => {
-            if (move[0] == checker & move[1] == cell) {
-                console.log('move\n', move);
-                console.log('!!! in getEnemyChecker !!!\n');
-                console.log('enemyChecker', move[2]);
+        possibleMovesDOM.forEach(move => {
+            if (move[0] === checker && move[1] === cell) {
                 enemyChecker = move[2]
             }
         })
@@ -67,13 +65,14 @@ export class Service {
     }
 
     getMoveAndElements(checker, cell) {
+        let elements = this.gameData.elements
         let enemyChecker = this.getEnemyChecker(checker, cell)
         let enemyCoord = []
         let checkerCoord = []
         let cellCoord = []
 
-        for (let key in this.elements) {
-            let element = this.elements[key]
+        for (let key in elements) {
+            let element = elements[key]
             switch(element) {
                 case checker:
                     checkerCoord = key.split(',').map(str => parseInt(str, 10))
@@ -90,92 +89,111 @@ export class Service {
     }
 
     makeMove(move, elements) {
-        elements[0].style.cssText = `--row:${move[1][0]}; --column:${move[1][1]};`
+        let activePlayer = this.gameData.activePlayer
+        let ownChecker = elements[0]
+        let enemyChecker = elements[2]
+        ownChecker.style.cssText = `--row:${move[1][0]}; --column:${move[1][1]};`
 
         let removeClass = [`row_${move[0][0]}`, `column_${move[0][1]}`]
         let addClass = [`row_${move[1][0]}`, `column_${move[1][1]}`]
-        elements[0].classList.remove(removeClass[0], removeClass[1])
-        elements[0].classList.add(addClass[0], addClass[1])
+        ownChecker.classList.remove(removeClass[0], removeClass[1])
+        ownChecker.classList.add(addClass[0], addClass[1])
 
-        if (this.activePlayer == 'black' & move[1][0] == 7) {
-            elements[0].classList.add('queen')
-        } else if (this.activePlayer == 'white' & move[1][0] == 0) {
-            elements[0].classList.add('queen')
+        if (activePlayer === 'black' && move[1][0] === 7) {
+            ownChecker.classList.add('queen')
+        } else if (activePlayer === 'white' && move[1][0] === 0) {
+            ownChecker.classList.add('queen')
         }
 
-        if (elements[2]) {
-            elements[2].remove()
+        if (enemyChecker) {
+            enemyChecker.remove()
         }
     }
 
-    cloneElements() {
-        for (let key in this.elements) {
-            if (this.elements[key] == null) {
-                continue
-            } else {
-                this.elements[key].classList.remove('active_checker')
-                this.elements[key].classList.remove('hovered')
-                this.elements[key].classList.remove('active_cell')
-                let clone = this.elements[key].cloneNode(true)
-                this.elements[key].replaceWith(clone)
+    cloneAllElements() {
+        let elements = this.gameData.elements
+        for (let key in elements) {
+            if (elements[key]) {
+                elements[key].classList.remove('active_checker')
+                elements[key].classList.remove('hovered')
+                elements[key].classList.remove('active_cell')
+                let clone = elements[key].cloneNode(true)
+                elements[key].replaceWith(clone)
             }
         }
     }
 
-    turnField() {
-        let field = document.querySelector('.field')
-        if (this.activePlayer == 'white') {
-            field.classList.remove('turned')
-        } else {
-            field.classList.add('turned')
-        }
+    cloneCells(activeCells, passiveCells) {
+        let elements = [...activeCells, ...passiveCells]
+        elements.forEach(el => {
+            let clone = el.cloneNode(true)
+            el.replaceWith(clone)
+        })
     }
 
-    servicePromiseOne = serviceThis => {
+    movePromise = moveThis => {
         return new Promise(function(resolve, reject) {
-            serviceThis.turnField()
-            let activeCheckers = serviceThis.getActiveCheckers()
+            let activeCheckers = moveThis.getActiveCheckers()
             activeCheckers.forEach(el => {
-                // console.log('servicePromiseOne\n', activeCheckers, '\n', el);
                 el.classList.add('hovered')
             })
 
             activeCheckers.forEach(checker => {
                 checker.addEventListener('click', () => {
-                    serviceThis.addRemoveActiveCheckersClass(checker, activeCheckers)
+                    moveThis.addRemoveActiveCheckersClass(checker, activeCheckers)
 
                     let activeCells
                     let passiveCells
-                    [activeCells, passiveCells] = serviceThis.getActiveCells(checker)
-                    serviceThis.addCellsActiveClass(activeCells)
-                    serviceThis.removeCellsActiveClass(passiveCells)
+                    [activeCells, passiveCells] = moveThis.getActiveCells(checker)
+                    moveThis.addCellsActiveClass(activeCells)
+                    moveThis.removeCellsActiveClass(passiveCells)
+                    moveThis.cloneCells(activeCells, passiveCells)
+                    moveThis.gameData.filling();
+                    [activeCells, ] = moveThis.getActiveCells(checker)
 
-                    resolve([activeCells, checker, serviceThis])
+                    activeCells.forEach(cell => {
+                        cell.addEventListener('click', () => {
+                            let elements
+                            let move
+                            [move, elements] = moveThis.getMoveAndElements(checker, cell)
+                            moveThis.makeMove(move, elements)
+
+                            moveThis.cloneAllElements()
+                            resolve(move)
+                        })
+                    })
                 })
             })
         })
     }
+}
 
-    servicePromiseTwo = function(activeCells, checker, serviceThis) {
-        return new Promise(function(resolve, reject) {
-            activeCells.forEach(cell => {
-                cell.addEventListener('click', () => {
-                    let elements
-                    let move
-                    [move, elements] = serviceThis.getMoveAndElements(checker, cell)
-                    serviceThis.makeMove(move, elements)
-
-                    serviceThis.cloneElements()
-                    // console.log('!!! in addEventOnCells !!!\n', move);
-                    resolve(move)
-                })
-            })
-        })
+export class EnemyMove {
+    constructor(inputGameData) {
+        this.gameData = new GameData(inputGameData)
+        this.gameData.fillingForEnemyMove()
     }
+    makeMove() {
+        let ownChecker = this.gameData.elementsForEnemyMove[0]
+        let enemyChecker = this.gameData.elementsForEnemyMove[2]
+        let move = this.gameData.move['move']
+        let playerColor = this.gameData.move['color']
 
-    async servicePromise(obj) {
-        let temp = await this.servicePromiseOne(obj)
-        let move = await this.servicePromiseTwo(temp[0], temp[1], temp[2])
-        return move
+        ownChecker.style.cssText = `--row:${move[1][0]}; --column:${move[1][1]};`
+
+        let removeClass = [`row_${move[0][0]}`, `column_${move[0][1]}`]
+        let addClass = [`row_${move[1][0]}`, `column_${move[1][1]}`]
+        ownChecker.classList.remove(removeClass[0], removeClass[1])
+        ownChecker.classList.add(addClass[0], addClass[1])
+
+        if (playerColor === 'black' && move[1][0] === 7) {
+            ownChecker.classList.add('queen')
+        } else if (playerColor === 'white' && move[1][0] === 0) {
+            ownChecker.classList.add('queen')
+        }
+
+        if (enemyChecker) {
+            enemyChecker.remove()
+        }
     }
 }
