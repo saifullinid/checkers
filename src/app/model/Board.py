@@ -65,8 +65,7 @@ class Board:
         if not self.ignored_vector:
             vectors = (-1, -1), (-1, 1), (1, -1), (1, 1)
         else:
-            ignored_vector = set(self.ignored_vector)
-            vectors_set = {(-1, -1), (-1, 1), (1, -1), (1, 1)} - ignored_vector
+            vectors_set = {(-1, -1), (-1, 1), (1, -1), (1, 1)} - {(self.ignored_vector[0], self.ignored_vector[1])}
             vectors = tuple(vectors_set)
 
         for vector in vectors:

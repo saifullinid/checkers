@@ -8,8 +8,6 @@ export function enemyMoveHandling(inputGameData) {
     let activeUsername = inputGameData['players'][activePlayer]
     let username = localStorage.getItem('username')
 
-    console.log('enemyMoveHandling', move, storageMove)
-
     if (move && ((username !== activeUsername) ^ isActivePlayerChanged)) {
         move = move.join(',')
         if (storageMove !== move) {

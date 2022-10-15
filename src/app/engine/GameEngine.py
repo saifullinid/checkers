@@ -75,7 +75,6 @@ class GameEngine:
                     empty_coordinate = [enemy_coordinate[0] + vector[0], enemy_coordinate[1] + vector[1]]
 
                     active_moves.append([checker_coordinate, empty_coordinate, enemy_coordinate])
-        # print(f'!!!IN search_checker_active_moves!!! {active_moves}')
         return active_moves
 
     @staticmethod
@@ -126,8 +125,6 @@ class GameEngine:
                                 is_next_active_move_found = cls.check_queen_active_move(vector, empty_coordinate, enemy_class, game_data)
                                 if is_next_active_move_found:
                                     temp_active_moves.append([queen_coordinate, empty_coordinate, enemy_coordinate])
-
-                            print('search_queen_active_moves', vector)
                         else:
                             is_search_finish = True
                             break
@@ -149,8 +146,6 @@ class GameEngine:
         if active_moves:
             return True
         return False
-
-
 
     @staticmethod
     def search_queen_passive_moves(queen):
