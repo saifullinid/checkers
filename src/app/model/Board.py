@@ -39,16 +39,16 @@ class Board:
             for checker in self.field.values():
                 if checker != 'empty':
                     if not checker.rank:
-                        self.__search_checkers_rays(checker)
+                        self.search_checkers_rays(checker)
                     else:
-                        self.__search_queen_rays(checker)
+                        self.search_queen_rays(checker)
         else:
             if not current_checker.rank:
-                self.__search_checkers_rays(current_checker)
+                self.search_checkers_rays(current_checker)
             else:
-                self.__search_queen_rays(current_checker)
+                self.search_queen_rays(current_checker)
 
-    def __search_checkers_rays(self, checker):
+    def search_checkers_rays(self, checker):
         vectors = (-1, -1), (-1, 1), (1, -1), (1, 1)
         for vector in vectors:
             ray = []
@@ -61,7 +61,7 @@ class Board:
                     ray.append(self.field[current_coordinate])
             checker.rays[vector] = ray
 
-    def __search_queen_rays(self, queen):
+    def search_queen_rays(self, queen):
         if not self.ignored_vector:
             vectors = (-1, -1), (-1, 1), (1, -1), (1, 1)
         else:
