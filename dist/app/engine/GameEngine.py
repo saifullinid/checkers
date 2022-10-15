@@ -1,3 +1,6 @@
+from src.app.model.Checker import BlackChecker, WhiteChecker
+
+
 class GameEngine:
     @classmethod
     def filling_possible_moves(cls, game_data):
@@ -32,7 +35,7 @@ class GameEngine:
     @classmethod
     def search_active_moves(cls, checker, enemy_class, game_data):
         if checker.rank:
-            active_moves = cls.search_queen_active_moves(checker, enemy_class)
+            active_moves = cls.search_queen_active_moves(checker, enemy_class, game_data)
         else:
             active_moves = cls.search_checker_active_moves(checker, enemy_class)
         if active_moves:
@@ -90,10 +93,12 @@ class GameEngine:
                     passive_moves.append([checker_coordinate, empty_coordinate, enemy_coordinate])
         return passive_moves
 
-    @staticmethod
-    def search_queen_active_moves(queen, enemy_class):
+    @classmethod
+    def search_queen_active_moves(cls, queen, enemy_class, game_data):
         active_moves = []
+        temp_active_moves = []
         for vector, ray in queen.rays.items():
+
             is_enemy_found = False
             is_search_finish = False
             i = 0
@@ -116,12 +121,36 @@ class GameEngine:
 
                             active_moves.append([queen_coordinate, empty_coordinate, enemy_coordinate])
                             j += 1
+
+                            if queen in game_data.board.field.values():
+                                is_next_active_move_found = cls.check_queen_active_move(vector, empty_coordinate, enemy_class, game_data)
+                                if is_next_active_move_found:
+                                    temp_active_moves.append([queen_coordinate, empty_coordinate, enemy_coordinate])
+
+                            print('search_queen_active_moves', vector)
                         else:
                             is_search_finish = True
                             break
                 else:
                     break
+        if temp_active_moves:
+            active_moves = temp_active_moves
         return active_moves
+
+    @classmethod
+    def check_queen_active_move(cls, vector, coordinate, enemy_class, game_data):
+        queen = WhiteChecker(coordinate[0], coordinate[1], 1) \
+            if game_data.active_player == 'white' \
+            else BlackChecker(coordinate[0], coordinate[1], 1)
+
+        game_data.board.ignored_vector = (vector[0] * (-1), vector[1] * (-1))
+        game_data.board.search_queen_rays(queen)
+        active_moves = cls.search_queen_active_moves(queen, enemy_class, game_data)
+        if active_moves:
+            return True
+        return False
+
+
 
     @staticmethod
     def search_queen_passive_moves(queen):

@@ -184,8 +184,8 @@ def login():
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    # storage.logout_user_from_room(current_user)
-    # dbService.logout_user_from_room(current_user, db)
+    storage.logout_user_from_room(current_user)
+    dbService.logout_user_from_room(current_user, db)
     logout_user()
     return redirect(url_for('index'))
 
