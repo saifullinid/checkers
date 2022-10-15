@@ -2,7 +2,6 @@ export class GameData {
 
     constructor(gameData) {
         this.winner = gameData['winner']
-        this.checkWinner()
         this.possibleMoves = gameData['possible_moves']
         this.activePlayer = gameData['active_player']
 
@@ -27,7 +26,6 @@ export class GameData {
             let enemyCheckerClass = 0
             let enemyCheckerCoord = 0
             let enemyChecker = 0
-            console.log(move[2]);
             if (move[2].length) {
                 enemyCheckerClass = `.row_${move[2][0]}.column_${move[2][1]}`
                 enemyCheckerCoord = move[2].join()
