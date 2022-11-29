@@ -172,7 +172,7 @@ def login():
             login_user(user, remember=form.remember_me.data)
             return redirect(url_for('rooms'))
 
-        flash('Invalid username or password')
+        flash('Invalid username or password', 'login_info')
         return redirect(url_for('login'))
 
     return render_template('login.html',

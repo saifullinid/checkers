@@ -2,9 +2,15 @@
 
 {% block content %}
     <div class="form_container">
+        {% with messages = get_flashed_messages('login_info') %}
         <h2 class="form_title">LOG IN</h2>
         <form action="" class="form" method="post">
             {{ form.hidden_tag() }}
+                {% if messages %}
+                    {% for message in messages %}
+            <p style="font-size: 14px; color: red; text-align: center;">{{ message[1] }}</p>
+                    {% endfor %}
+                {% endif %}
             <p class="form_item">
                 {{ form.username.label(class='form_label', autocomplete='off') }}
                 {{ form.username(class='form_input', placeholder='Enter youre Name', autocomplete='off') }}
@@ -23,7 +29,7 @@
             <p class="form_item">
                 <a class="form_link" href="{{url_for('registration')}}">Registration</a>
             </p>
-
         </form>
+        {% endwith %}
     </div>
 {% endblock content %}

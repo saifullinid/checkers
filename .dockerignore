@@ -1,0 +1,6 @@
+.git
+.idea
+__pycache__
+frontend_src
+psql_Docker
+venv

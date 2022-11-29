@@ -19,14 +19,16 @@ def add_colors_and_test_users():
         with connection.cursor() as cursor:
             cursor.execute(
                 '''
-                INSERT INTO colors (color) VALUES (%s), (%s);
+                INSERT INTO colors (color) VALUES (%s), (%s)
+                ON CONFLICT (color) DO NOTHING;
                 ''',
                 ('black', 'white')
             )
             cursor.execute(
                 '''
                 INSERT INTO users (username, email, password_hash) 
-                VALUES (%s, %s, %s), (%s, %s, %s);
+                VALUES (%s, %s, %s), (%s, %s, %s)
+                ON CONFLICT (email) DO NOTHING;
                 ''',
                 ('user_1', 'user_1@example.com', generate_password_hash('123456'),
                  'user_2', 'user_2@example.com', generate_password_hash('123456'))
@@ -38,4 +40,4 @@ def add_colors_and_test_users():
             connection.close()
 
 
-add_colors_and_test_users()
+# add_colors_and_test_users()

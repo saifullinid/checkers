@@ -1,5 +1,5 @@
 FROM python:3.10.8-slim-buster
-WORKDIR /app/
+WORKDIR /app
 
 COPY requirements.txt ./tmp/
 RUN apt-get update \
@@ -7,7 +7,9 @@ RUN apt-get update \
     && pip install psycopg2
 RUN pip install --no-cache-dir --upgrade -r ./tmp/requirements.txt
 
-COPY ./dist .
+COPY . .
+
+ENV DATABASE_HOST='db'
 
 EXPOSE 8000
 
