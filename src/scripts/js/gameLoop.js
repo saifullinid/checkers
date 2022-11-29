@@ -30,7 +30,6 @@ export function startGameLoop(url) {
             }
 
             move = await ownMoveHandling(inputGameData)
-
         }
     })()
 }

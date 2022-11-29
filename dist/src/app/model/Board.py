@@ -1,5 +1,4 @@
 from .Checker import BlackChecker, WhiteChecker
-from .test_filling import test_filling_board_1
 
 
 class Board:
@@ -10,7 +9,6 @@ class Board:
         self.enemy_class = ''
         self.field = {}
         self.ignored_vector = ()
-        # test_filling_board_1(self)
         self.filling_field()
 
     def __repr__(self):

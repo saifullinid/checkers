@@ -5,11 +5,12 @@
         <div class="greeting">
             {% if current_user.is_authenticated %}
                 <h1>Hello, {{ current_user.username }}!</h1>
+                <p class="hello">This is game CHECKERS</p>
             {% else %}
                 <h1>Hello, USER!</h1>
+                <p class="hello">This is game CHECKERS</p>
+                <p class="hello">Login to start playing</p>
             {% endif %}
-            <p class="hello">This is game CHECKERS</p>
-            <p class="hello">Login to start playing</p>
         </div>
     </div>
 {% endblock content %}
