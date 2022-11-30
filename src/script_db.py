@@ -40,4 +40,4 @@ def add_colors_and_test_users():
             connection.close()
 
 
-# add_colors_and_test_users()
+add_colors_and_test_users()
